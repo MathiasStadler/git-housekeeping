@@ -65,15 +65,24 @@ SCRIPT_NAME="git-housekeeping.sh"
 cat << EOF >$SCRIPT_NAME
 #!/bin/bash
 
-alias git-housekeeping= "f() {
-echo "=> git-housekeeping"
-if [[ \$# -eq 0 ]];
-then
-echo 'what will you do';
-exit 1;
-fi;
-echo "param $1";
-}; f;"
+alias githousekeeping="f(){ \\
+echo => git housekeeping; \\
+if [[ \\\$# -eq 0 ]]; \\
+then \\
+echo what will you do; \\
+else \\
+echo found action \\\$1 ; \\
+    if [ \\\$1 == "check" ]; \\
+    then \\
+        echo action check; \\
+    elif [ \\\$1 == "push" ]; \\
+    then \\
+        echo action push; \\
+    else \\
+        echo action not found; \\
+    fi; \\
+fi; \\
+}; f"
 EOF
 
 chmod +x $SCRIPT_NAME
@@ -84,4 +93,6 @@ source ./$SCRIPT_NAME
 
 ```
 
-
+```bash
+alias githouse='f() { if [[ $# -eq 0 ]]; then echo what will you do; else echo $1 ;fi; }; f'
+```
