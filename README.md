@@ -104,10 +104,15 @@ echo found action \\\$1 ; \\
     elif [ \\\$1 == "push" ]; \\
     then \\
         echo action push; \\
-         URL=\$(git config --get remote.origin.url); \\
-        DIRNAME=\$(dirname \$URL ); \\
-        echo URL => \$URL; \\
-        echo DIRNAME => \$DIRNAME; \\
+        URL=\\\$(git config --get remote.origin.url); \\
+        DIRNAME=\\\$(dirname \\\$URL ); \\
+        MATCH=\\\$(cat \\\${GITHUB_ACCOUNT_URL})
+        if [[ \\\$DIRNAME =~ \\\$(cat \${GITHUB_ACCOUNT_URL}) ]]; then \\
+        echo \"own repo push\"; \\
+        git pull; \\
+        else \\
+        echo \"NOT own repo (Maybe the repoIdentifier is not set\"; \\
+        fi; \\
     elif [ \\\$1 == "pull" ]; \\
     then \\
         echo \\\$d action pull; \\
