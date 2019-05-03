@@ -78,14 +78,33 @@ echo found action \\\$1 ; \\
     echo current directory \\\$PWD; \\
     if [ \\\$1 == "check" ]; \\
     then \\
-        echo action check; \\
+        echo action check ; \\
+        git status --porcelain | awk '/^\\\?\\\?/ { print \\\$2; }'; \\
+        echo action check repo status; \\
+        UPSTREAM=\\\${1:-@{u}} ; \\
+        LOCAL=\\\$(git rev-parse @) ; \\
+        REMOTE=\\\$(git rev-parse \"\$UPSTREAM\"); \\
+        BASE=\\\$(git merge-base @ \"\$UPSTREAM\"); \\
+        echo UPSTREAM \\\$UPSTREAM; \\
+        echo LOCAL \\\$LOCAL; \\
+        echo REMOTE \\\$REMOTE; \\
+        echo BASE \\\$BASE; \\
+        if [ \\\$LOCAL = \\\$REMOTE ]; then \\
+            echo Up-to-date; \\
+        elif [ \\\$LOCAL = \\\$BASE ]; then \\
+            echo Need to pull; \\
+        elif [ \\\$REMOTE = \\\$BASE ]; then \\
+            echo Need to push; \\
+        else \\
+            echo Diverged; \\
+        fi; \\
     elif [ \\\$1 == "push" ]; \\
     then \\
         echo action push; \\
     elif [ \\\$1 == "pull" ]; \\
     then \\
         echo \\\$d action pull; \\
-        echo git --git-dir=\\\$d/.git --work-tree=\\\$d pull origin master
+        git pull origin master; \\
     elif [ \\\$1 == "add" ]; \\
     then \\
         echo action add; \\
