@@ -101,6 +101,7 @@ echo found action \\\$1 ; \\
     elif [ \\\$1 == "push" ]; \\
     then \\
         echo action push; \\
+        git push; \\
     elif [ \\\$1 == "pull" ]; \\
     then \\
         echo \\\$d action pull; \\
@@ -108,9 +109,11 @@ echo found action \\\$1 ; \\
     elif [ \\\$1 == "add" ]; \\
     then \\
         echo action add; \\
+        git add .;\\
     elif [ \\\$1 == "commit" ]; \\
     then \\
         echo action commit; \\
+        git add -am \\\\\"auto save\\\\\"
     else \\
         echo action not found; \\
     fi; \\
