@@ -78,6 +78,15 @@ echo found action \\\$1 ; \\
     elif [ \\\$1 == "push" ]; \\
     then \\
         echo action push; \\
+    elif [ \\\$1 == "pull" ]; \\
+    then \\
+        echo action pull; \\
+    elif [ \\\$1 == "add" ]; \\
+    then \\
+        echo action add; \\
+    elif [ \\\$1 == "commit" ]; \\
+    then \\
+        echo action commit; \\
     else \\
         echo action not found; \\
     fi; \\
