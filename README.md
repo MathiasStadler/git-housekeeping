@@ -72,6 +72,8 @@ then \\
 echo what will you do; \\
 else \\
 echo found action \\\$1 ; \\
+    find . -name .git -type d -prune | while read d;
+    do cd \\\$d/..;
     if [ \\\$1 == "check" ]; \\
     then \\
         echo action check; \\
@@ -90,6 +92,8 @@ echo found action \\\$1 ; \\
     else \\
         echo action not found; \\
     fi; \\
+    cd \\\$OLDPWD;
+    done
 fi; \\
 }; f"
 EOF
