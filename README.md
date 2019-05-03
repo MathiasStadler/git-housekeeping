@@ -67,7 +67,7 @@ cat << EOF >$SCRIPT_NAME
 
 alias githousekeeping="f(){ \\
 GITHUB_ACCOUNT_URL=\"\\\${HOME}/.gitHubAccountURL.info\"; \\
-echo => git housekeeping; \\
+echo git housekeeping; \\
 if [[ \\\$# -eq 0 ]]; \\
 then \\
 echo what will you do? check commit push pull repoIdentifier findRepository ; \\
