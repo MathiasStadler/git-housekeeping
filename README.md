@@ -66,10 +66,19 @@ cat << EOF >$SCRIPT_NAME
 #!/bin/bash
 
 alias githousekeeping="f(){ \\
+GITHUB_ACCOUNT_URL=\"\\\${HOME}/.gitHubAccountURL.info\"; \\
 echo => git housekeeping; \\
 if [[ \\\$# -eq 0 ]]; \\
 then \\
-echo what will you do? check commit push pull; \\
+echo what will you do? check commit push pull findRepository setGitHubAccountURL; \\
+elif [ \\\$1 == "setGitHubAccountURL" ]; \\
+    then \\
+        echo found action \\\$1 ; \\
+        echo action setGitHubAccountURL; \\
+        read -p \"enter unique identifier for repository that contain in the remote URL e.g. account name\" repoIdentifier ; \\
+        echo \\\$repoIdentifier; \\
+        echo \\\$repoIdentifier >>\\\${GITHUB_ACCOUNT_URL}; \\
+        printf \"set GitHub Account URL to => %s \" \"\\\$(cat \\\${GITHUB_ACCOUNT_URL})\" ; \\
 else \\
 echo found action \\\$1 ; \\
     find . -name .git -type d -prune | while read d;
@@ -129,3 +138,7 @@ source ./$SCRIPT_NAME
 ```bash
 alias githouse='f() { if [[ $# -eq 0 ]]; then echo what will you do; else echo $1 ;fi; }; f'
 ```
+
+
+cd ./git-housekeeping; \\
+        dirname \\\$(git config --get remote.origin.url) >\\\${GITHUB_ACCOUNT_URL}; \\
