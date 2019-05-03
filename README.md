@@ -69,7 +69,7 @@ alias githousekeeping="f(){ \\
 echo => git housekeeping; \\
 if [[ \\\$# -eq 0 ]]; \\
 then \\
-echo what will you do; \\
+echo what will you do? check commit push pull; \\
 else \\
 echo found action \\\$1 ; \\
     find . -name .git -type d -prune | while read d;
