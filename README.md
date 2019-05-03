@@ -73,7 +73,9 @@ echo what will you do; \\
 else \\
 echo found action \\\$1 ; \\
     find . -name .git -type d -prune | while read d;
-    do cd \\\$d/..;
+    do \\
+    cd \\\$d/..; \\
+    echo current directory \\\$PWD; \\
     if [ \\\$1 == "check" ]; \\
     then \\
         echo action check; \\
@@ -82,7 +84,8 @@ echo found action \\\$1 ; \\
         echo action push; \\
     elif [ \\\$1 == "pull" ]; \\
     then \\
-        echo action pull; \\
+        echo \\\$d action pull; \\
+        echo git --git-dir=\\\$d/.git --work-tree=\\\$d pull origin master
     elif [ \\\$1 == "add" ]; \\
     then \\
         echo action add; \\
