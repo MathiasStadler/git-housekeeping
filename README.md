@@ -78,25 +78,20 @@ echo found action \\\$1 ; \\
     echo current directory \\\$PWD; \\
     if [ \\\$1 == "check" ]; \\
     then \\
-        echo action check ; \\
+        echo action check; \\
         git status --porcelain | awk '/^\\\?\\\?/ { print \\\$2; }'; \\
-        echo action check repo status; \\
-        UPSTREAM=\\\${1:-@{u}} ; \\
-        LOCAL=\\\$(git rev-parse @) ; \\
+        UPSTREAM=\\\${1:-@{u}}; \\
+        LOCAL=\\\$(git rev-parse @); \\
         REMOTE=\\\$(git rev-parse \"\$UPSTREAM\"); \\
         BASE=\\\$(git merge-base @ \"\$UPSTREAM\"); \\
-        echo UPSTREAM \\\$UPSTREAM; \\
-        echo LOCAL \\\$LOCAL; \\
-        echo REMOTE \\\$REMOTE; \\
-        echo BASE \\\$BASE; \\
         if [ \\\$LOCAL = \\\$REMOTE ]; then \\
-            echo Up-to-date; \\
+            echo  \\\$PWD Up-to-date; \\
         elif [ \\\$LOCAL = \\\$BASE ]; then \\
-            echo Need to pull; \\
+            echo  \\\$PWD Need to pull; \\
         elif [ \\\$REMOTE = \\\$BASE ]; then \\
-            echo Need to push; \\
+            echo  \\\$PWD Need to push; \\
         else \\
-            echo Diverged; \\
+            echo  \\\$PWD Diverged; \\
         fi; \\
     elif [ \\\$1 == "push" ]; \\
     then \\
@@ -113,7 +108,7 @@ echo found action \\\$1 ; \\
     elif [ \\\$1 == "commit" ]; \\
     then \\
         echo action commit; \\
-        git add -am \\\\\"auto save\\\\\"
+        git commit -am \\\"auto save\\\"
     else \\
         echo action not found; \\
     fi; \\
