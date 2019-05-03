@@ -70,14 +70,13 @@ GITHUB_ACCOUNT_URL=\"\\\${HOME}/.gitHubAccountURL.info\"; \\
 echo => git housekeeping; \\
 if [[ \\\$# -eq 0 ]]; \\
 then \\
-echo what will you do? check commit push pull findRepository setGitHubAccountURL; \\
-elif [ \\\$1 == "setGitHubAccountURL" ]; \\
+echo what will you do? check commit push pull repoIdentifier findRepository ; \\
+elif [ \\\$1 == "repoIdentifier" ]; \\
     then \\
         echo found action \\\$1 ; \\
-        echo action setGitHubAccountURL; \\
-        read -p \"enter unique identifier for repository that contain in the remote URL e.g. account name\" repoIdentifier ; \\
-        echo \\\$repoIdentifier; \\
-        echo \\\$repoIdentifier >>\\\${GITHUB_ACCOUNT_URL}; \\
+        echo action repoIdentifier; \\
+        read -p \"enter unique identifier for repository that contain in the remote URL e.g. account name => \" repoIdentifier ; \\
+        echo \\\$repoIdentifier >\\\${GITHUB_ACCOUNT_URL}; \\
         printf \"set GitHub Account URL to => %s \" \"\\\$(cat \\\${GITHUB_ACCOUNT_URL})\" ; \\
 else \\
 echo found action \\\$1 ; \\
@@ -105,7 +104,10 @@ echo found action \\\$1 ; \\
     elif [ \\\$1 == "push" ]; \\
     then \\
         echo action push; \\
-        git push; \\
+         URL=\$(git config --get remote.origin.url); \\
+        DIRNAME=\$(dirname \$URL ); \\
+        echo URL => \$URL; \\
+        echo DIRNAME => \$DIRNAME; \\
     elif [ \\\$1 == "pull" ]; \\
     then \\
         echo \\\$d action pull; \\
@@ -142,3 +144,11 @@ alias githouse='f() { if [[ $# -eq 0 ]]; then echo what will you do; else echo $
 
 cd ./git-housekeeping; \\
         dirname \\\$(git config --get remote.origin.url) >\\\${GITHUB_ACCOUNT_URL}; \\
+
+
+ if [\"\\\$(dirname \\\$(git config --get remote.origin.url) >\\\${GITHUB_ACCOUNT_URL})\" =~ \"\\\$(cat \\\${GITHUB_ACCOUNT_URL})\" ] ; then \\
+                echo "ok"; \\
+                git push; \\
+            else \\
+                echo "not ok"; \\
+            fi; \\
