@@ -108,7 +108,7 @@ echo found action \\\$1 ; \\
     elif [ \\\$1 == "commit" ]; \\
     then \\
         echo action commit; \\
-        git commit -am \\\"auto save\\\"
+        git commit -am \"auto save\"
     else \\
         echo action not found; \\
     fi; \\
