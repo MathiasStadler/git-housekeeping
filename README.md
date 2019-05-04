@@ -149,8 +149,9 @@ echo found action \\\$1 ; \\
         fi ; \\
     elif [ \\\$1 == "updateGitIgnore" ]; \\
     then \\
-        echo action addGitIgnore; \\
+        echo action updateGitIgnore; \\
         if [ -e .gitignore ] ; then \\
+        echo check remote  master git ignore repo \\\$(cat \\\${REPO_GIT_IGNORE}); \\
         git -C \\\${PATH_GIT_IGNORE} pull; \\
         echo .gitignore available for update ; \\
         cp  \\\${PATH_GIT_IGNORE}/.gitignore .gitignore; \\
