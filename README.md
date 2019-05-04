@@ -67,10 +67,12 @@ cat << EOF >$SCRIPT_NAME
 
 alias githousekeeping="f(){ \\
 GITHUB_ACCOUNT_URL=\"\\\${HOME}/.gitHubAccountURL.info\"; \\
+REPO_GIT_IGNORE=\"\\\${HOME}/.repoGitIgnoreURL.info\"; \\
+PATH_GIT_IGNORE=\"\\\${HOME}/git_ignore\"
 echo git housekeeping; \\
 if [[ \\\$# -eq 0 ]]; \\
 then \\
-echo what will you do? check commit push pull repoIdentifier findRepository ; \\
+echo what will you do? check commit push pull repoIdentifier findRepository addGitIgnore setGitIgnore ; \\
 elif [ \\\$1 == "repoIdentifier" ]; \\
     then \\
         echo found action \\\$1 ; \\
@@ -78,6 +80,14 @@ elif [ \\\$1 == "repoIdentifier" ]; \\
         read -p \"enter unique identifier for repository that contain in the remote URL e.g. account name => \" repoIdentifier ; \\
         echo \\\$repoIdentifier >\\\${GITHUB_ACCOUNT_URL}; \\
         printf \"set GitHub Account URL to => %s \" \"\\\$(cat \\\${GITHUB_ACCOUNT_URL})\" ; \\
+elif [ \\\$1 == "setGitIgnore" ]; \\
+    then \\
+        echo found action \\\$1 ; \\
+        echo action setGitIgnore; \\
+        read -p \"enter URL for your gitignore master project => \" repoGitIgnore; \\
+        echo \\\$repoGitIgnore >\\\${REPO_GIT_IGNORE}; \\
+        printf \"set repo git ignore url to => %s \" \"\\\$(cat \\\${REPO_GIT_IGNORE})\" ; \\
+        git clone \\\$(cat \\\${REPO_GIT_IGNORE})  \\\${PATH_GIT_IGNORE}; \\
 else \\
 echo found action \\\$1 ; \\
     find . -name .git -type d -prune | while read d;
@@ -124,7 +134,16 @@ echo found action \\\$1 ; \\
     elif [ \\\$1 == "commit" ]; \\
     then \\
         echo action commit; \\
-        git commit -am \"auto save\"
+        git commit -am \"auto save\"; \\
+    elif [ \\\$1 == "addGitIgnore" ]; \\
+    then \\
+        echo action addGitIgnore; \\
+        if [ -e .gitignore ] ; then \\
+        echo .gitignore available ; \\
+        else \\
+        echo NO .gitignore; \\
+        copy  \\\${PATH_GIT_IGNORE}/.gitignore .gitignore; \\
+        fi ; \\
     else \\
         echo action not found; \\
     fi; \\
