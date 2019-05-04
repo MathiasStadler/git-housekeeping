@@ -72,7 +72,7 @@ PATH_GIT_IGNORE=\"\\\${HOME}/git_ignore\"
 echo git housekeeping; \\
 if [[ \\\$# -eq 0 ]]; \\
 then \\
-echo what will you do? check commit push pull repoIdentifier findRepository addGitIgnore setGitIgnore ; \\
+echo what will you do? check commit push pull repoIdentifier findRepository addGitIgnore setGitIgnore reAcGitIgnore; \\
 elif [ \\\$1 == "repoIdentifier" ]; \\
     then \\
         echo found action \\\$1 ; \\
@@ -146,6 +146,20 @@ echo found action \\\$1 ; \\
         git add . ; \\
         git commit -am \"add .gitignore\"; \\
         echo push necessary ; \\
+        fi ; \\
+    elif [ \\\$1 == "updateGitIgnore" ]; \\
+    then \\
+        echo action addGitIgnore; \\
+        if [ -e .gitignore ] ; then \\
+        git -C \\\${PATH_GIT_IGNORE} pull; \\
+        echo .gitignore available for update ; \\
+        cp  \\\${PATH_GIT_IGNORE}/.gitignore .gitignore; \\
+        git add . ; \\
+        git commit -am \"update .gitignore\"; \\
+        echo push necessary ; \\
+        else \\
+        echo NO .gitignore file found; \\
+        echo please add first; \\
         fi ; \\
     else \\
         echo action not found; \\
