@@ -142,7 +142,10 @@ echo found action \\\$1 ; \\
         echo .gitignore available ; \\
         else \\
         echo NO .gitignore; \\
-        copy  \\\${PATH_GIT_IGNORE}/.gitignore .gitignore; \\
+        cp  \\\${PATH_GIT_IGNORE}/.gitignore .gitignore; \\
+        git add . ; \\
+        git commit -am \"add .gitignore\"; \\
+        echo push necessary ; \\
         fi ; \\
     else \\
         echo action not found; \\
