@@ -100,8 +100,8 @@ echo found action \\\$1 ; \\
         git status --porcelain | awk '/^\\\?\\\?/ { print \\\$2; }'; \\
         UPSTREAM=\\\${1:-@{u}}; \\
         LOCAL=\\\$(git rev-parse @); \\
-        REMOTE=\\\$(git rev-parse \"\$UPSTREAM\"); \\
-        BASE=\\\$(git merge-base @ \"\$UPSTREAM\"); \\
+        REMOTE=\\\$(git rev-parse \"\\\$UPSTREAM\"); \\
+        BASE=\\\$(git merge-base @ \"\\\$UPSTREAM\"); \\
         if [ \\\$LOCAL = \\\$REMOTE ]; then \\
             echo  \\\$PWD Up-to-date; \\
         elif [ \\\$LOCAL = \\\$BASE ]; then \\
@@ -194,3 +194,10 @@ cd ./git-housekeeping; \\
             else \\
                 echo "not ok"; \\
             fi; \\
+
+Add following lines to your ~/.bash_profile
+
+parse_git_branch() {
+     git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
+export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
