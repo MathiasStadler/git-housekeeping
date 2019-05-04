@@ -62,10 +62,10 @@ done
 
 ```bash
 SCRIPT_NAME="git-housekeeping.sh"
+METHOD_ALIAS_NAME="githousekeeping"; \\
 cat << EOF >$SCRIPT_NAME
 #!/bin/bash
-
-alias githousekeeping="f(){ \\
+alias \${METHOD_ALIAS_NAME}="f(){ \\
 GITHUB_ACCOUNT_URL=\"\\\${HOME}/.gitHubAccountURL.info\"; \\
 REPO_GIT_IGNORE=\"\\\${HOME}/.repoGitIgnoreURL.info\"; \\
 PATH_GIT_IGNORE=\"\\\${HOME}/git_ignore\"
