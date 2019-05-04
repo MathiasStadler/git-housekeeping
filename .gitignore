@@ -22,7 +22,7 @@ build/
 **/currentContainerIpAddr.txt
 
 # for security reason
-.vscode/**
+# .vscode/**
 **/*key
 **/*pem
 **/*crt
