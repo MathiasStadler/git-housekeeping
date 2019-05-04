@@ -119,7 +119,7 @@ echo found action \\\$1 ; \\
         MATCH=\\\$(cat \\\${GITHUB_ACCOUNT_URL})
         if [[ \\\$DIRNAME =~ \\\$(cat \${GITHUB_ACCOUNT_URL}) ]]; then \\
         echo \"own repo push\"; \\
-        git pull; \\
+        git push; \\
         else \\
         echo \"NOT own repo (Maybe the repoIdentifier is not set\"; \\
         fi; \\
