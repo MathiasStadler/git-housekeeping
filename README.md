@@ -69,7 +69,9 @@ alias \${METHOD_ALIAS_NAME}="f(){ \\
 GITHUB_ACCOUNT_URL=\"\\\${HOME}/.gitHubAccountURL.info\"; \\
 REPO_GIT_IGNORE=\"\\\${HOME}/.repoGitIgnoreURL.info\"; \\
 PATH_GIT_IGNORE=\"\\\${HOME}/git_ignore\"
-echo git housekeeping; \\
+readonly DEFAULT='\033[0;m'; \\
+readonly CRED='\033[0;31m'; \\
+echo githousekeeping for all repositories in folder; \\
 if [[ \\\$# -eq 0 ]]; \\
 then \\
 echo What will you do? ; \\
@@ -195,7 +197,7 @@ echo found action \\\$1 ; \\
         if \\\$(git ls-remote \\\${REMOTE_REPO_URL} CHECK_GIT_REMOTE_URL_REACHABILITY); then \\
         echo remote repo set/reach/online; \\
         else \\
-        echo remote repo NOT set/reach/ offline; \\
+        printf \"\\\$CRED remote repo NOT set/ reach / offline\\\$DEFAULT\\\n \"; \\
         fi; \\
     else \\
         echo action not found; \\
