@@ -60,7 +60,7 @@ done
 
 ## bash function
 
-```bash
+```bash git-housekeeping.sh
 SCRIPT_NAME="git-housekeeping.sh"
 METHOD_ALIAS_NAME="githousekeeping"; \\
 cat << EOF >$SCRIPT_NAME
