@@ -1,5 +1,19 @@
 # git-housekeeping
- evacuated all project from server with comment "autosave"
+
+housekeeping for all project of local environment ( server, vm, workstation)
+
+## tl;dr
+
+- create bash method and lod info running shell
+
+```bash
+unalias githousekeeping
+EXPORT_GIT_HOUSE_KEEPING="/tmp/export_githousekeeping.sh"
+sed -n '/^```bash git-housekeeping.sh/,/^```/{ /^```bash.*$/d; /^```$/d; p; }' README.md  >$EXPORT_GIT_HOUSE_KEEPING
+chmod +x $EXPORT_GIT_HOUSE_KEEPING
+source . ./$EXPORT_GIT_HOUSE_KEEPING
+
+```
 
 ## add all file  to the repos
 
