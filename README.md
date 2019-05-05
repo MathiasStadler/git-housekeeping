@@ -72,7 +72,16 @@ PATH_GIT_IGNORE=\"\\\${HOME}/git_ignore\"
 echo git housekeeping; \\
 if [[ \\\$# -eq 0 ]]; \\
 then \\
-echo What will you do? check commit push pull repoIdentifier findRepository addGitIgnore setGitIgnore fixGitIgnore; \\
+echo What will you do? ; \\
+echo check; \\
+echo commit; \\
+echo push; \\
+echo pull; \\
+echo repoIdentifier; \\
+echo findRepository; \\
+echo addGitIgnore: \\
+echo setGitIgnore; \\
+echo fixGitIgnore; \\
 elif [ \\\$1 == "repoIdentifier" ]; \\
     then \\
         echo found action \\\$1 ; \\
