@@ -82,6 +82,7 @@ echo findRepository; \\
 echo addGitIgnore: \\
 echo setGitIgnore; \\
 echo fixGitIgnore; \\
+echo checkRemote; \\
 elif [ \\\$1 == "repoIdentifier" ]; \\
     then \\
         echo found action \\\$1 ; \\
@@ -186,6 +187,16 @@ echo found action \\\$1 ; \\
         echo NO .gitignore file found; \\
         echo please add first; \\
         fi ; \\
+    elif [ \\\$1 == "checkRemote" ]; \\
+    then \\
+        echo action checkRemote; \\
+        REMOTE_REPO_URL=\\\$(git config --get remote.origin.url); \\
+        echo Remote repo url \\\${REMOTE_REPO_URL}; \\
+        if \\\$(git ls-remote \\\${REMOTE_REPO_URL} CHECK_GIT_REMOTE_URL_REACHABILITY); then \\
+        echo remote repo set/reach/online; \\
+        else \\
+        echo remote repo NOT set/reach/ offline; \\
+        fi; \\
     else \\
         echo action not found; \\
     fi; \\
