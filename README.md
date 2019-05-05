@@ -97,11 +97,12 @@ echo found action \\\$1 ; \\
     if [ \\\$1 == "check" ]; \\
     then \\
         echo action check; \\
-        git status --porcelain | awk '/^\\\?\\\?/ { print \\\$2; }'; \\
-        UPSTREAM=\\\${1:-@{u}}; \\
         LOCAL=\\\$(git rev-parse @); \\
-        REMOTE=\\\$(git rev-parse \"\\\$UPSTREAM\"); \\
-        BASE=\\\$(git merge-base @ \"\\\$UPSTREAM\"); \\
+        REMOTE=\\\$(git rev-parse @{u}); \\
+        BASE=\\\$(git merge-base @ @{u}); \\
+        echo LOCAL \\\$LOCAL; \\
+        echo BASE \\\$BASE; \\
+        echo REMOTE \\\$REMOTE; \\
         if [ \\\$LOCAL = \\\$REMOTE ]; then \\
             echo  \\\$PWD Up-to-date; \\
         elif [ \\\$LOCAL = \\\$BASE ]; then \\
@@ -201,3 +202,14 @@ parse_git_branch() {
      git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 }
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
+
+
+
+
+UPSTREAM=${1:-@{u}}
+LOCAL=$(git rev-parse @)
+BASE=$(git merge-base @ "$UPSTREAM");
+REMOTE=$(git rev-parse "$UPSTREAM");
+echo $LOCAL
+echo $BASE
+echo $REMOTE
