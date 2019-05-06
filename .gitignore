@@ -1,3 +1,6 @@
+# custom for this project
+git-housekeeping.sh
+
 # vagrant work directory
 /.vagrant
 /bin
@@ -18,7 +21,7 @@ build/
 **/*gzip
 
 
-# custom 
+# custom
 **/currentContainerIpAddr.txt
 
 # for security reason

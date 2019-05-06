@@ -85,6 +85,10 @@ echo found action \$1 ; \
     elif [ \$1 == "addGitIgnore" ]; \
     then \
         echo action addGitIgnore; \
+        URL=\$(git config --get remote.origin.url); \
+        DIRNAME=\$(dirname \$URL ); \
+        MATCH=\$(cat \${GITHUB_ACCOUNT_URL})
+        if [[ \$DIRNAME =~ \$(cat ${GITHUB_ACCOUNT_URL}) ]]; then \
         if [ -e .gitignore ] ; then \
         echo .gitignore available ; \
         else \
@@ -93,6 +97,7 @@ echo found action \$1 ; \
         git add . ; \
         git commit -am \"add .gitignore\"; \
         echo push necessary ; \
+        fi ; \
         fi ; \
     elif [ \$1 == "updateGitIgnore" ]; \
     then \
@@ -112,6 +117,10 @@ echo found action \$1 ; \
     elif [ \$1 == "fixGitIgnore" ]; \
     then \
         echo action fixGitIgnore; \
+        URL=\$(git config --get remote.origin.url); \
+        DIRNAME=\$(dirname \$URL ); \
+        MATCH=\$(cat \${GITHUB_ACCOUNT_URL})
+        if [[ \$DIRNAME =~ \$(cat ${GITHUB_ACCOUNT_URL}) ]]; then \
         if [ -e .gitignore ] ; then \
         echo fix/force .gitignore on current local repo ; \
         echo .gitignore available for fix/force; \
@@ -123,15 +132,15 @@ echo found action \$1 ; \
         echo NO .gitignore file found; \
         echo please add first; \
         fi ; \
+        fi ; \
     elif [ \$1 == "checkRemote" ]; \
     then \
         echo action checkRemote; \
         REMOTE_REPO_URL=\$(git config --get remote.origin.url); \
-        echo Remote repo url \${REMOTE_REPO_URL}; \
-        if \$(git ls-remote \${REMOTE_REPO_URL} CHECK_GIT_REMOTE_URL_REACHABILITY); then \
-        echo remote repo set/reach/online; \
+        if \$(git ls-remote \${REMOTE_REPO_URL} CHECK_GIT_REMOTE_URL_REACHABILITY >/dev/null); then \
+        echo remote REPO FOUND => \$PWD ; \
         else \
-        printf \"\$CRED remote repo NOT set/ reach / offline\$DEFAULT\\n \"; \
+        printf \"\$CRED remote NO REMOTE \$DEFAULT => \$PWD \\n \"; \
         fi; \
     else \
         echo action not found; \
