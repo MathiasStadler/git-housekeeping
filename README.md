@@ -7,8 +7,8 @@ housekeeping for all project of local environment ( server, vm, workstation)
 - create bash method and lod info running shell
 
 ```bash
-unalias githousekeeping
 EXPORT_GIT_HOUSE_KEEPING="/tmp/export_githousekeeping.sh"
+unalias githousekeeping
 sed -n '/^```bash git-housekeeping.sh/,/^```/{ /^```bash.*$/d; /^```$/d; p; }' README.md  >$EXPORT_GIT_HOUSE_KEEPING
 chmod +x $EXPORT_GIT_HOUSE_KEEPING
 source . ./$EXPORT_GIT_HOUSE_KEEPING
@@ -76,7 +76,7 @@ done
 
 ```bash git-housekeeping.sh
 SCRIPT_NAME="git-housekeeping.sh"
-METHOD_ALIAS_NAME="githousekeeping"; \\
+METHOD_ALIAS_NAME="githousekeeping"
 cat << EOF >$SCRIPT_NAME
 #!/bin/bash
 alias \${METHOD_ALIAS_NAME}="f(){ \\
