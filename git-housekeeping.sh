@@ -5,6 +5,7 @@ REPO_GIT_IGNORE=\"\${HOME}/.repoGitIgnoreURL.info\"; \
 PATH_GIT_IGNORE=\"\${HOME}/git_ignore\"
 readonly DEFAULT='\033[0;m'; \
 readonly CRED='\033[0;31m'; \
+readonly CGREEN='\033[0;32m'; \
 echo githousekeeping for all repositories in folder; \
 if [[ \$# -eq 0 ]]; \
 then \
@@ -137,10 +138,10 @@ echo found action \$1 ; \
     then \
         echo action checkRemote; \
         REMOTE_REPO_URL=\$(git config --get remote.origin.url); \
-        if \$(git ls-remote \${REMOTE_REPO_URL} CHECK_GIT_REMOTE_URL_REACHABILITY >/dev/null); then \
-        echo remote REPO FOUND => \$PWD ; \
+        if \$(git ls-remote \${REMOTE_REPO_URL} CHECK_GIT_REMOTE_URL_REACHABILITY >/dev/null 1>/dev/null 2>/dev/null ); then \
+        printf \"\$CGREEN REMOTE FOUND \$DEFAULT => \$PWD \\n \"; \
         else \
-        printf \"\$CRED remote NO REMOTE \$DEFAULT => \$PWD \\n \"; \
+        printf \"\$CRED NO REMOTE \$DEFAULT => \$PWD \\n \"; \
         fi; \
     else \
         echo action not found; \

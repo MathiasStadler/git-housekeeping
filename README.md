@@ -85,6 +85,7 @@ REPO_GIT_IGNORE=\"\\\${HOME}/.repoGitIgnoreURL.info\"; \\
 PATH_GIT_IGNORE=\"\\\${HOME}/git_ignore\"
 readonly DEFAULT='\033[0;m'; \\
 readonly CRED='\033[0;31m'; \\
+readonly CGREEN='\033[0;32m'; \\
 echo githousekeeping for all repositories in folder; \\
 if [[ \\\$# -eq 0 ]]; \\
 then \\
@@ -217,10 +218,10 @@ echo found action \\\$1 ; \\
     then \\
         echo action checkRemote; \\
         REMOTE_REPO_URL=\\\$(git config --get remote.origin.url); \\
-        if \\\$(git ls-remote \\\${REMOTE_REPO_URL} CHECK_GIT_REMOTE_URL_REACHABILITY >/dev/null); then \\
-        echo remote REPO FOUND => \\\$PWD ; \\
+        if \\\$(git ls-remote \\\${REMOTE_REPO_URL} CHECK_GIT_REMOTE_URL_REACHABILITY >/dev/null 1>/dev/null 2>/dev/null ); then \\
+        printf \"\\\$CGREEN REMOTE FOUND \\\$DEFAULT => \\\$PWD \\\n \"; \\
         else \\
-        printf \"\\\$CRED remote NO REMOTE \\\$DEFAULT => \\\$PWD \\\n \"; \\
+        printf \"\\\$CRED NO REMOTE \\\$DEFAULT => \\\$PWD \\\n \"; \\
         fi; \\
     else \\
         echo action not found; \\
@@ -262,9 +263,6 @@ parse_git_branch() {
 }
 export PS1="\u@\h \[\033[32m\]\w\[\033[33m\]\$(parse_git_branch)\[\033[00m\] $ "
 
-
-
-
 UPSTREAM=${1:-@{u}}
 LOCAL=$(git rev-parse @)
 BASE=$(git merge-base @ "$UPSTREAM");
@@ -272,3 +270,9 @@ REMOTE=$(git rev-parse "$UPSTREAM");
 echo $LOCAL
 echo $BASE
 echo $REMOTE
+
+```bash
+git branch|sed 's/*//g'|sed 's/^\w.*//g'|while read CMD;
+do printf " $CMD\n";
+done;
+```
